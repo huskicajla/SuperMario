@@ -145,7 +145,7 @@ public class MouseControls extends Components {
             for(Integer gameObjectId : uniqueGameObjectIds){
                 GameObject pickedGameObject = Window.getScene().getGameObject(gameObjectId);
                 if(pickedGameObject != null && pickedGameObject.getComponent(NonPickable.class) == null){
-                    Window.getImGuiLayer().getPropertiesWindow().setActiveGameObject(pickedGameObject);
+                    Window.getImGuiLayer().getPropertiesWindow().addActiveGameObject(pickedGameObject);
                 }
             }
         }

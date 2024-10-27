@@ -25,14 +25,15 @@ public class Shader {
         this.filepath = filepath;
         try {
             String source = new String(Files.readAllBytes(Paths.get(filepath)));
+            source = source.replace("\r\n", "\n");
             String[] splitString = source.split("(#type)( )+([a-zA-Z]+)");
 
             int index = source.indexOf("#type") + 6;
-            int endOfTheLine = source.indexOf("\r\n", index);
+            int endOfTheLine = source.indexOf("\n", index);
             String firstPattern = source.substring(index, endOfTheLine).trim();
 
             index = source.indexOf("#type", endOfTheLine) + 6;
-            endOfTheLine = source.indexOf("\r\n", index);
+            endOfTheLine = source.indexOf("\n", index);
             String secondPattern = source.substring(index, endOfTheLine).trim();
 
             if(firstPattern.equals("vertex")){

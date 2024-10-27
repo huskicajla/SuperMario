@@ -34,8 +34,32 @@ void main()
 {
     if(fTextureId > 0) {
         int id = int(fTextureId);
-        vec4 sampledColor = texture(uTextures[id], fTextureCords);
-        color = fColor * sampledColor;
+        switch (id) {
+            case 0:
+            color = fColor * texture(uTextures[0], fTextureCords);
+            break;
+            case 1:
+            color = fColor * texture(uTextures[1], fTextureCords);
+            break;
+            case 2:
+            color = fColor * texture(uTextures[2], fTextureCords);
+            break;
+            case 3:
+            color = fColor * texture(uTextures[3], fTextureCords);
+            break;
+            case 4:
+            color = fColor * texture(uTextures[4], fTextureCords);
+            break;
+            case 5:
+            color = fColor * texture(uTextures[5], fTextureCords);
+            break;
+            case 6:
+            color = fColor * texture(uTextures[6], fTextureCords);
+            break;
+            case 7:
+            color = fColor * texture(uTextures[7], fTextureCords);
+            break;
+        }
     } else {
         color = fColor;
     }
