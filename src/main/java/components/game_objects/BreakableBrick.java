@@ -2,6 +2,7 @@ package components.game_objects;
 
 import components.PlayerController;
 import core.assets.AssetPool;
+import scenes.LevelSceneInitializer;
 
 public class BreakableBrick extends Block {
 
@@ -10,6 +11,7 @@ public class BreakableBrick extends Block {
         if(!playerController.isSmall()) {
             AssetPool.getSound("textures/sounds/break_block.ogg").play();
             gameObject.destroy();
+            LevelSceneInitializer.addScore(100);
         }
     }
 }

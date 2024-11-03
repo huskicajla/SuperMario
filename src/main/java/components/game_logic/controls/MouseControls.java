@@ -33,6 +33,7 @@ public class MouseControls extends Components {
     private Vector2f boxSelectStart = new Vector2f();
     private Vector2f boxSelectEnd = new Vector2f();
 
+    // Picks up the specified game object and makes it the currently held object
     public void pickUpObject(GameObject gameObject){
         if(this.holdingObject != null){
             this.holdingObject.destroy();
@@ -43,6 +44,7 @@ public class MouseControls extends Components {
         Window.getScene().addGameObject(gameObject);
     }
 
+    // Places the currently held object in the game world
     public void place(){
         GameObject newGameObject = holdingObject.copy();
         if(newGameObject.getComponent(StateMachine.class) != null){
@@ -53,6 +55,7 @@ public class MouseControls extends Components {
         Window.getScene().addGameObject(newGameObject);
     }
 
+    // Updates the mouse controls
     @Override
     public void editorUpdate(float dt) {
         debounce -= dt;
@@ -151,6 +154,7 @@ public class MouseControls extends Components {
         }
     }
 
+    // Checks if there are any non-pickable game objects within a specified square area
     private boolean blockInSquare (float x, float y) {
         PropertiesWindow propertiesWindow = Window.getImGuiLayer().getPropertiesWindow();
         Vector2f start = new Vector2f(x, y);

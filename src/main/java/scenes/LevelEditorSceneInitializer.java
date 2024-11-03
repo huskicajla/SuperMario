@@ -24,16 +24,12 @@ import pixel_pioneer.Sound;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class LevelEditorSceneInitializer extends SceneInitializer {
 
     private Spritesheet spriteSheet;
 
     private GameObject levelEditorStuff;
-
-    private Direction direction;
 
     public LevelEditorSceneInitializer(){
 
@@ -122,10 +118,6 @@ public class LevelEditorSceneInitializer extends SceneInitializer {
 
     @Override
     public void imgui(){
-
-        ImGui.begin("Level editor Scene");
-        levelEditorStuff.imgui();
-        ImGui.end();
 
         ImGui.begin("Objects");
 

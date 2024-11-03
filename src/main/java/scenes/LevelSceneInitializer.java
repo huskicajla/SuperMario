@@ -7,9 +7,17 @@ import components.ui.SpriteRenderer;
 import components.ui.Spritesheet;
 import components.ui.StateMachine;
 import core.assets.AssetPool;
+import core.enums.EventType;
+import core.event_system.Event;
+import core.event_system.EventSystem;
+import editor.GameViewWindow;
+import imgui.ImFont;
+import imgui.ImGui;
 import pixel_pioneer.GameObject;
 
 public class LevelSceneInitializer extends SceneInitializer {
+    private static int lives = 3;
+    private static int score = 0;
 
     public LevelSceneInitializer(){
 
@@ -93,5 +101,29 @@ public class LevelSceneInitializer extends SceneInitializer {
     @Override
     public void imgui(){
 
+    }
+
+    public static void resetOnLifeLoss(){
+        if(lives > 1) {
+            lives--;
+        } else {
+            lives = 3;
+            score = 0;
+            GameViewWindow.isPlaying = false;
+            EventSystem.notify(null, new Event(EventType.GameEngineStopPlay));
+        }
+    }
+
+    public static void addScore(int points) {
+        score += points;
+    }
+
+
+    public static int getLives() {
+        return lives;
+    }
+
+    public static int getScore() {
+        return score;
     }
 }

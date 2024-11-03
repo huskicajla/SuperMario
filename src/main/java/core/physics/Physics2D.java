@@ -25,7 +25,7 @@ public class Physics2D {
     private int positionIterations = 3;
 
     public Physics2D() {
-        world.setContactListener(new PikselPionirContactListener());
+        world.setContactListener(new PixelPioneerContactListener());
     }
 
     public Vector2f getGravity() {

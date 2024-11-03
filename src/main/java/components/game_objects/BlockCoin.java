@@ -3,6 +3,7 @@ package components.game_objects;
 import components.Components;
 import org.joml.Vector2f;
 import core.assets.AssetPool;
+import scenes.LevelSceneInitializer;
 
 public class BlockCoin extends Components {
     private Vector2f topY;
@@ -21,6 +22,7 @@ public class BlockCoin extends Components {
             this.gameObject.transform.position.x -= (0.05f * dt) % -1.0f;
         } else {
             gameObject.destroy();
+            LevelSceneInitializer.addScore(100);
         }
     }
 }

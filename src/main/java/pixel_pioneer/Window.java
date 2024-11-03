@@ -1,5 +1,6 @@
 package pixel_pioneer;
 
+import imgui.ImGui;
 import scenes.LevelEditorSceneInitializer;
 import scenes.LevelSceneInitializer;
 import scenes.Scene;
@@ -86,6 +87,8 @@ public class Window implements Observer {
         glfwFreeCallbacks(glfwWindow);
         glfwDestroyWindow(glfwWindow);
 
+        ImGui.destroyContext();
+
         glfwTerminate();
         glfwSetErrorCallback(null).free();
     }
@@ -140,6 +143,8 @@ public class Window implements Observer {
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
+        ImGui.createContext();
 
         this.framebuffer = new Framebuffer(1040, 639);
         this.pickingTexture = new PickingTexture(1040, 639);

@@ -7,6 +7,7 @@ import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2f;
 import core.assets.AssetPool;
 
+// Abstract class that represents a block component in the game,
 public abstract class Block extends Components {
     private transient boolean bopGoingUp = true;
     private transient boolean doBopAnimation = true;
@@ -22,6 +23,7 @@ public abstract class Block extends Components {
         this.topBopLocation = new Vector2f(bopStart).add(0.0f, 0.02f);
     }
 
+    // Updates the block's position for the bop animation over time
     @Override
     public void update(float dt) {
         if(doBopAnimation) {
@@ -43,6 +45,7 @@ public abstract class Block extends Components {
         }
     }
 
+    // Called when the block begins to collide with another game object
     @Override
     public void beginCollision(GameObject go, Contact contact, Vector2f contactNormal) {
         PlayerController playerController = go.getComponent(PlayerController.class);
@@ -53,9 +56,11 @@ public abstract class Block extends Components {
         }
     }
 
+    // Deactivates the block, preventing further interactions with the player
     public void setInactive() {
         this.active = false;
     }
 
+    // Abstract method that must be implemented by subclasses to define player interaction behavior
     abstract void playerHit(PlayerController playerController);
 }

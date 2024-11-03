@@ -49,7 +49,7 @@ public class ImGuiLayer {
         ImGui.createContext();
 
         final ImGuiIO io = ImGui.getIO();
-        io.setIniFilename("imgui.ini"); // Disable .ini file saving
+        io.setIniFilename("imgui.ini");
         io.addConfigFlags(ImGuiConfigFlags.DockingEnable);
         io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);
         io.setBackendPlatformName("imgui_java_impl_glfw");
@@ -74,7 +74,8 @@ public class ImGuiLayer {
         final ImFontConfig fontConfig = new ImFontConfig();
         fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesDefault());
 
-        fontAtlas.addFontFromFileTTF("textures/fonts/segoeui.ttf", 30.0f, fontConfig);
+        ImFont defaultFont = fontAtlas.addFontFromFileTTF("textures/fonts/segoeui.ttf", 30.0f, fontConfig);
+        io.setFontDefault(defaultFont);
 
         fontConfig.destroy();
 

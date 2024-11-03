@@ -6,6 +6,7 @@ import pixel_pioneer.GameObject;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2f;
 import core.assets.AssetPool;
+import scenes.LevelSceneInitializer;
 
 public class Coin extends Components {
     private Vector2f topY;
@@ -25,6 +26,7 @@ public class Coin extends Components {
                 this.gameObject.transform.scale.x -= (0.5f * dt) % -1.0f;
             } else {
                 this.gameObject.destroy();
+                LevelSceneInitializer.addScore(100);
             }
         }
     }

@@ -28,7 +28,7 @@ public class PropertiesWindow {
     public void imgui() {
         if (activeGameObjects.size() == 1 && activeGameObjects.get(0) != null) {
             activeGameObject = activeGameObjects.get(0);
-            ImGui.begin("PropertiesWindow");
+            ImGui.begin("Properties Window");
 
 
             if(ImGui.beginPopupContextWindow("ComponentsAdder")) {

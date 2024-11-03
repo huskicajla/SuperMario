@@ -2,6 +2,8 @@ package components;
 
 
 import components.game_logic.Ground;
+import components.game_objects.BlockCoin;
+import components.game_objects.Coin;
 import components.game_objects.Fireball;
 import components.ui.SpriteRenderer;
 import components.ui.StateMachine;
@@ -60,6 +62,8 @@ public class PlayerController extends Components {
     private transient boolean playWinAnimation = false;
     private transient float timeToCastle = 4.5f;
     private transient float walkTime = 2.2f;
+    private transient float deathHeight;
+
 
     @Override
     public void start() {
@@ -71,10 +75,10 @@ public class PlayerController extends Components {
 
     @Override
     public void update(float dt) {
+        deathHeight = GameCamera.deathHeight;
 
-        float deathHeight = -5.0f;
-
-        if (this.gameObject.transform.position.y < deathHeight) {
+        if (this.gameObject.transform.position.y < deathHeight && !isDead) {
+            isDead = true;
             die();
         }
 
@@ -197,7 +201,8 @@ public class PlayerController extends Components {
                 this.velocity.y = 0;
             }
             groundDebounce = 0;
-        }else if(enemyBounce > 0) {
+        }
+        else if(enemyBounce > 0) {
             enemyBounce--;
             this.velocity.y = ((enemyBounce / 2.2f) * jumpBoost);
         }else if(!onGround){
@@ -276,6 +281,7 @@ public class PlayerController extends Components {
     @Override
     public void beginCollision(GameObject collidingObject, Contact contact, Vector2f contactNormal) {
         if (isDead) return;
+
         if (collidingObject.getComponent(Ground.class) != null) {
             if (Math.abs(contactNormal.x) > 0.8f) {
                 this.velocity.x = 0;
@@ -307,6 +313,7 @@ public class PlayerController extends Components {
         return this.playerState == PlayerState.Invincible || this.hurtInvincibilityTimeLeft > 0 || playWinAnimation;
     }
 
+
     public void die() {
         this.stateMachine.trigger("die");
         if(this.playerState == PlayerState.Small){
@@ -322,6 +329,7 @@ public class PlayerController extends Components {
             if(gameObject.transform.position.y > 0) {
                 deadMinHeight = -0.25f;
             }
+            LevelSceneInitializer.resetOnLifeLoss();
         }else if (this.playerState == PlayerState.Big) {
             this.playerState = PlayerState.Small;
             gameObject.transform.scale.y = 0.24f;

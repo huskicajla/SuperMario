@@ -9,7 +9,7 @@ import org.jbox2d.collision.WorldManifold;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2f;
 
-public class PikselPionirContactListener implements ContactListener {
+public class PixelPioneerContactListener implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
         GameObject objectA = (GameObject) contact.getFixtureA().getUserData();

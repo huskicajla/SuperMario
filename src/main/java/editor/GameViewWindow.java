@@ -1,5 +1,7 @@
 package editor;
 
+import imgui.ImFont;
+import imgui.flag.ImGuiCol;
 import pixel_pioneer.MouseListener;
 import pixel_pioneer.Window;
 import imgui.ImGui;
@@ -9,11 +11,28 @@ import core.event_system.EventSystem;
 import core.event_system.Event;
 import core.enums.EventType;
 import org.joml.Vector2f;
+import scenes.LevelSceneInitializer;
 
 public class GameViewWindow {
 
     private float leftX, rightX, topY, bottomY;
-    private boolean isPlaying = false;
+    public static boolean isPlaying = false;
+    public static boolean showHUD = false;
+
+    private int currentLevel = 1;
+    private int score;
+    private int lives;
+
+    private ImFont marioFont;
+
+    public GameViewWindow() {
+        initFontRetroM();
+    }
+
+    public void initFontRetroM() {
+        marioFont = ImGui.getIO().getFonts().addFontFromFileTTF("textures/fonts/RetroMario-Regular.otf", 45);
+        ImGui.getIO().setFontGlobalScale(1.0f);
+    }
 
     public void imgui() {
         ImGui.begin("Game Viewport", ImGuiWindowFlags.NoScrollbar
@@ -23,10 +42,12 @@ public class GameViewWindow {
         ImGui.beginMenuBar();
         if(ImGui.menuItem("Play", "", isPlaying, !isPlaying)) {
             isPlaying = true;
+            showHUD = true;
             EventSystem.notify(null, new Event(EventType.GameEngineStartPlay));
         }
         if(ImGui.menuItem("Stop", "", !isPlaying, isPlaying)) {
             isPlaying = false;
+            showHUD = false;
             EventSystem.notify(null, new Event(EventType.GameEngineStopPlay));
         }
         ImGui.endMenuBar();
@@ -51,6 +72,23 @@ public class GameViewWindow {
         // Set game viewport position and size
         MouseListener.setGameViewportPos(new Vector2f(topLeft.x, topLeft.y - 25));
         MouseListener.setGameViewportSize(new Vector2f(windowSize.x, windowSize.y));
+
+        if(showHUD){
+            ImGui.pushFont(marioFont);
+
+            float margin = 20.0f;
+            ImGui.setCursorPos(windowPos.x + margin, windowPos.y + margin);
+            ImGui.text("Score: " + LevelSceneInitializer.getScore());
+
+            ImGui.setCursorPos(windowPos.x + (windowSize.x / 2) - 60, windowPos.y + margin);
+            ImGui.text("Level: " + currentLevel);
+
+            ImGui.setCursorPos(windowPos.x + windowSize.x - 170, windowPos.y + margin);
+            ImGui.text("Lives: " + LevelSceneInitializer.getLives());
+
+            ImGui.popFont();
+        }
+
 
         ImGui.end();
     }

@@ -17,6 +17,8 @@ public class GameCamera extends Components {
     private Vector4f skyColor = new Vector4f(92.0f / 255.0f, 148.0f / 255.0f, 252.0f / 255.0f, 1.0f);
     private Vector4f undergroundColor = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
 
+    public static float deathHeight;
+
     public GameCamera(Camera camera) {
         this.gameCamera = camera;
     }
@@ -36,11 +38,13 @@ public class GameCamera extends Components {
 
             if(player.transform.position.y < -playerBuffer) {
                 this.gameCamera.position.y = undergrounYLevel;
+                deathHeight = undergrounYLevel - 0.25f;
                 this.gameCamera.clearColor.set(undergroundColor);
                 safePlace = true;
             } else if (player.transform.position.y >= 0) {
                 this.gameCamera.position.y = 0.0f;
                 this.gameCamera.clearColor.set(skyColor);
+                deathHeight =  - 0.25f;
             }
         }
     }
