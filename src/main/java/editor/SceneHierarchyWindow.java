@@ -12,6 +12,10 @@ public class SceneHierarchyWindow {
     private static String playloadType = "SceneHierarchy";
 
     public void imgui() {
+        if (GameViewWindow.isPlaying) {
+            return;
+        }
+
         ImGui.begin("Scene Hierarchy");
 
         List<GameObject> gameObjects = Window.getScene().getGameObjects();
